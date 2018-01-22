@@ -53,6 +53,7 @@
     <commons-pool>1.6</commons-pool>
     <commons-pool2>2.4.2</commons-pool2>
     <commons-collections>3.2.1</commons-collections>
+    <commons.configuration.version>1.10</commons.configuration.version>
 
 
     <validation-api>1.1.0.Final</validation-api>
@@ -68,6 +69,9 @@
     <lombok.version>1.16.18</lombok.version><!-- 注解工具类 -->
     <pagehelper.version>5.1.2</pagehelper.version> <!-- mybatis 分页插件 -->
     <swagger.version>2.7.0</swagger.version> <!-- api 插件 -->
+
+    <velocity.version>1.7</velocity.version>
+    <velocity.tools.version>2.0</velocity.tools.version>
 
   </properties>
 
@@ -329,6 +333,11 @@
       <version>${commons-pool2}</version>
     </dependency>
     <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>${commons.configuration.version}</version>
+    </dependency>
+    <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
       <version>${validation-api}</version>
@@ -429,6 +438,60 @@
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${swagger.version}</version>
+    </dependency>
+
+    <!-- Velocity视图所需jar -->
+    <dependency>
+      <artifactId>velocity</artifactId>
+      <groupId>org.apache.velocity</groupId>
+      <version>${velocity.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity-tools</artifactId>
+      <version>${velocity.tools.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>dom4j</artifactId>
+          <groupId>dom4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>oro</artifactId>
+          <groupId>oro</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>sslext</artifactId>
+          <groupId>sslext</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>struts-core</artifactId>
+          <groupId>org.apache.struts</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>struts-taglib</artifactId>
+          <groupId>org.apache.struts</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>struts-tiles</artifactId>
+          <groupId>org.apache.struts</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-validator</artifactId>
+          <groupId>commons-validator</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-beanutils</artifactId>
+          <groupId>commons-beanutils</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-chain</artifactId>
+          <groupId>commons-chain</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-collections</artifactId>
+          <groupId>commons-collections</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 

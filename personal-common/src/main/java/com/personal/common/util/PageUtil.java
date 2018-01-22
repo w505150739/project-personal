@@ -1,4 +1,4 @@
-package com.personal.common.base;
+package com.personal.common.util;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +23,12 @@ public class PageUtil {
     private List data;
 
     private Integer total;
+
+    public PageUtil(Integer startRow, Integer rowLength, List data, Integer total) {
+        this.startRow = startRow;
+        this.rowLength = rowLength;
+        this.data = data;
+        this.total = total;
+    }
 
 }

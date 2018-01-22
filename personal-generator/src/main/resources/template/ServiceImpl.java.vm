@@ -1,0 +1,27 @@
+package ${package}.service.impl;
+
+import com.personal.common.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.personal.common.util.LogUtil;
+import java.util.List;
+import java.util.Map;
+
+import ${package}.mapper.${className}Mapper;
+import ${package}.entity.${className}Entity;
+import ${package}.service.${className}Service;
+
+
+
+@Service("${classname}Service")
+public class ${className}ServiceImpl extends BaseService<${className}Entity,${pk.attrType}> implements ${className}Service {
+
+    private final LogUtil logger = LogUtil.getLogger(this.getClass());
+
+    @Override
+    public BaseMapper<${className}Entity,${pk.attrType}> getMapper(){
+        return ${className}TimeMapper;
+    }
+
+}

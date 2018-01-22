@@ -1,4 +1,4 @@
-package com.personal.common.base;
+package com.personal.common.util.result;
 
 import lombok.Getter;
 import lombok.Setter;

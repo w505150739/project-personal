@@ -2,6 +2,8 @@ package com.personal.generator.service.impl;
 
 import com.personal.generator.dao.SysGeneratorDao;
 import com.personal.generator.service.SysGeneratorService;
+import com.personal.generator.utils.GeneratorUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.ByteArrayOutputStream;
@@ -51,7 +53,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService{
             //取得根目录路径
             String rootPath=getClass().getResource("/").getFile().toString();
             //生成代码
-            GenUtils.generatorCode(table, columns, zip, genType);
+            GeneratorUtils.generatorCode(table, columns, zip, genType);
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();

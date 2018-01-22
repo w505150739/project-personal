@@ -1,0 +1,19 @@
+package ${package}.service;
+
+import ${package}.entity.${className}Entity;
+
+import com.personal.common.service.BaseService;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends BaseService<${className}Entity,${pk.attrType}>{
+
+}
