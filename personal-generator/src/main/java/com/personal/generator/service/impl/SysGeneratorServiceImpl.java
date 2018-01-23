@@ -5,6 +5,7 @@ import com.personal.generator.service.SysGeneratorService;
 import com.personal.generator.utils.GeneratorUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.zip.ZipOutputStream;
  * @description: ${todo}(这里用一句话描述这个类的作用)
  * @date 2018/1/21 0:42
  */
+@Service("sysGeneratorService")
 public class SysGeneratorServiceImpl implements SysGeneratorService{
     @Autowired
     private SysGeneratorDao sysGeneratorDao;

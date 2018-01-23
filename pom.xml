@@ -33,6 +33,8 @@
     <spring.version>4.3.10.RELEASE</spring.version> <!-- spring 框架-->
     <spring.mobile>1.1.2.RELEASE</spring.mobile>
     <jackson.version>2.8.6</jackson.version> <!-- Jackson JSON转换 -->
+    <fastjson.version>1.2.23</fastjson.version>
+    <jackson.mapper.version>1.9.13</jackson.mapper.version>
     <mysql-connector.version>5.1.30</mysql-connector.version><!-- 数据库驱动 -->
     <mybatis.version>3.2.7</mybatis.version><!-- Mybatis 框架 -->
     <mybatis-spring.version>1.2.2</mybatis-spring.version>
@@ -202,9 +204,30 @@
       <artifactId>spring-messaging</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <!-- fastjson、jackson格式处理包-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${jackson.mapper.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
       <version>${jackson.version}</version>
     </dependency>
     <dependency>
