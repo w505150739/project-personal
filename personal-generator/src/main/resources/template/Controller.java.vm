@@ -3,6 +3,8 @@ package ${package}.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.personal.common.util.LogUtil;
+import com.personal.common.util.result.ResultData;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.personal.common.base.BaseController;
 import ${package}.entity.${className}Entity;
 import ${package}.service.${className}Service;
 import ${utils}.PageUtil;
@@ -28,6 +31,9 @@ import ${utils}.result.ResultData;
 @RestController
 @RequestMapping("${pathName}")
 public class ${className}Controller extends BaseController{
+
+    private static LogUtil logger = LogUtil.getLogger(${className}Controller.class);
+
 	@Autowired
 	private ${className}Service ${classname}Service;
 	
@@ -36,7 +42,7 @@ public class ${className}Controller extends BaseController{
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("${pathName}:list")
-	public Result list(@RequestParam Map<String, Object> params){
+	public ResultData list(@RequestParam Map<String, Object> params){
         ResultData result=new ResultData();
 		//查询列表数据
         Query query = new Query(params);
@@ -45,9 +51,9 @@ public class ${className}Controller extends BaseController{
 		int total = ${classname}Service.queryTotal(query);
 		result.setTotal(total);
 		result.setRowLength(query.getLimit());
-		PageUtil pageUtil = new PageUtil((page - 1) * limit ${classname}List, total, query.getLimit(), query.getPage());
-		
-		return Result.ok().put("page", pageUtil);
+		PageUtil pageUtil = new PageUtil((query.getPage() - 1) * limit, query.getLimit(), ${classname}List, total);
+        result.setData(pageUtil);
+		return result;
 	}
 	
 	
@@ -56,10 +62,14 @@ public class ${className}Controller extends BaseController{
 	 */
 	@RequestMapping("/info/{${pk.attrname}}")
 	@RequiresPermissions("${pathName}:info")
-	public Result info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+	public ResultData info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+
+	    ResultData result = new ResultData();
+
 		${className}Entity ${classname} = ${classname}Service.queryObject(${pk.attrname});
-		
-		return Result.ok().put("${classname}", ${classname});
+
+		result.setData(${classname});
+		return result;
 	}
 	
 	/**
@@ -67,10 +77,14 @@ public class ${className}Controller extends BaseController{
 	 */
 	@RequestMapping("/save")
 	@RequiresPermissions("${pathName}:save")
-	public Result save(@RequestBody ${className}Entity ${classname}){
+	public ResultData save(@RequestBody ${className}Entity ${classname}){
+        ResultData result = new ResultData();
+
 		${classname}Service.save(${classname});
-		
-		return Result.ok();
+
+		result.setMessage("保存成功！");
+
+		return result;
 	}
 	
 	/**
@@ -78,10 +92,15 @@ public class ${className}Controller extends BaseController{
 	 */
 	@RequestMapping("/update")
 	@RequiresPermissions("${pathName}:update")
-	public Result update(@RequestBody ${className}Entity ${classname}){
+	public ResultData update(@RequestBody ${className}Entity ${classname}){
+
+	    ResultData result = new ResultData();
+
 		${classname}Service.update(${classname});
-		
-		return Result.ok();
+
+        result.setMessage("更新成功！");
+
+		return result;
 	}
 	
 	/**
@@ -89,10 +108,14 @@ public class ${className}Controller extends BaseController{
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("${pathName}:delete")
-	public Result delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
+	public ResultData delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
+
+        ResultData result = new ResultData();
+
 		${classname}Service.deleteBatch(${pk.attrname}s);
-		
-		return Result.ok();
+
+        result.setMessage("删除成功！");
+		return result;
 	}
 	
 }
