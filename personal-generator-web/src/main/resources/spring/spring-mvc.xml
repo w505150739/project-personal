@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Standard xml based mvc config-->
+    <mvc:annotation-driven enable-matrix-variables="true"/>
+
+    <!-- 子容器：  Spring MVC 容器 -->
+    <context:property-placeholder location="classpath:config/deploy.properties" />
+
+    <!-- 自动扫描注解类 -->
+    <context:component-scan base-package="com" use-default-filters="false" >
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+    </context:component-scan>
+
+    <!-- spring mvc 请求处理适配器配置数据转换 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="webBindingInitializer">
+            <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+                <property name="propertyEditorRegistrars">
+                    <array>
+                        <bean
+                                class="com.personal.common.bind.DataEditorRegistrar" />
+                    </array>
+                </property>
+            </bean>
+        </property>
+
+        <!--  reading or writing to the request and response -->
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonHttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" >
+        <property name="supportedMediaTypes"><!--response的Content-Typ-->
+            <list>
+                <value>text/html;charset=UTF-8</value><!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+
+    <!-- 文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
+
+    <!-- RESTful风格url,设置静态页面的映射地址
+    <mvc:resources mapping="/admin/**" location="/admin/"/>
+    <mvc:resources mapping="/common/**" location="/common/"/>
+    <mvc:resources mapping="/login/**" location="/login/"/>
+    <mvc:resources mapping="/front/**" location="/front/"/>
+    <mvc:resources mapping="/font/**" location="/font/"/>
+    -->
+    <!-- 	<mvc:interceptors> -->
+    <!--         <mvc:interceptor> -->
+    <!--             <mvc:mapping path="/**/*.do" /> -->
+    <!--             <bean class="com.wiseyq.webapp.config.interceptor.CommonInterceptor"> -->
+    <!--             <property name="excludeUrls"> -->
+    <!--                     <list> -->
+    <!--                         <value>/web/login.do</value> -->
+    <!--                         <value>/qrlogin/qrcode.do</value> -->
+    <!--                         <value>/qrlogin/login.do</value> -->
+    <!--                     </list> -->
+    <!--                 </property> -->
+    <!--             </bean> -->
+    <!--         </mvc:interceptor> -->
+    <!--         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" /> -->
+    <!--     </mvc:interceptors> -->
+
+    <!-- Swgger配置， Enables swgger ui-->
+
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <!--<bean name="/applicationSwaggerConfig" class="com.wiseyq.webapp.config.swagger.ApplicationSwaggerConfig"/>-->
+
+    <!--
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    -->
+</beans>

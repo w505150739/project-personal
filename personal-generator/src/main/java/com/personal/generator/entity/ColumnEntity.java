@@ -9,8 +9,6 @@ import lombok.ToString;
  * @description: ${todo}(这里用一句话描述这个类的作用)
  * @date 2018/1/21 0:37
  */
-@Setter
-@Getter
 @ToString
 public class ColumnEntity {
 
@@ -29,4 +27,60 @@ public class ColumnEntity {
     private String attrType;
     //auto_increment
     private String extra;
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getAttrName() {
+        return attrName;
+    }
+
+    public void setAttrName(String attrName) {
+        this.attrName = attrName;
+    }
+
+    public String getAttrname() {
+        return attrname;
+    }
+
+    public void setAttrname(String attrname) {
+        this.attrname = attrname;
+    }
+
+    public String getAttrType() {
+        return attrType;
+    }
+
+    public void setAttrType(String attrType) {
+        this.attrType = attrType;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
 }
