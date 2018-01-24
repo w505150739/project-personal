@@ -12,7 +12,6 @@
     <module>personal-generator</module>
     <module>personal-admin</module>
     <module>personal-api</module>
-    <module>personal-generator-web</module>
   </modules>
   <packaging>pom</packaging>
 
