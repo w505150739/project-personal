@@ -16,19 +16,30 @@ import java.util.List;
 @ToString
 public class PageUtil {
 
-    private Integer startRow;
+    /**
+     * 标识，成功：200，失败：其他状态码
+     */
+    private Integer code;
 
-    private Integer rowLength;
+    /**
+     * 消息提示
+     */
+    private String message;
 
-    private List data;
-
+    /**
+     * 数据总量
+     */
     private Integer total;
 
-    public PageUtil(Integer startRow, Integer rowLength, List data, Integer total) {
-        this.startRow = startRow;
-        this.rowLength = rowLength;
-        this.data = data;
-        this.total = total;
-    }
+    /**
+     * 数据
+     */
+    private Object data;
 
+    public PageUtil(Integer code, String message, Integer total, Object data) {
+        this.code = code;
+        this.message = message;
+        this.total = total;
+        this.data = data;
+    }
 }
