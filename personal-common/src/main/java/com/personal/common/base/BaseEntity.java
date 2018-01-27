@@ -25,4 +25,5 @@ public class BaseEntity implements Serializable {
 
     private Timestamp updateTime;
 
+    private Integer status;
 }

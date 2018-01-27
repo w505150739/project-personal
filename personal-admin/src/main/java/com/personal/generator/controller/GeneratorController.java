@@ -6,10 +6,12 @@ import com.personal.common.filter.XssHttpServletRequestWrapper;
 import com.personal.common.util.PageUtil;
 import com.personal.common.util.Query;
 import com.personal.common.util.constants.GlobalConstants;
+import com.personal.common.util.result.ResultData;
 import com.personal.generator.service.SysGeneratorService;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +27,8 @@ import java.util.Map;
  * @description: ${todo}(这里用一句话描述这个类的作用)
  * @date 2018/1/26 14:58
  */
+@Controller
+@RequestMapping("api/generator")
 public class GeneratorController extends BaseController {
     @Autowired
     private SysGeneratorService sysGeneratorService;

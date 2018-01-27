@@ -37,4 +37,5 @@ public class ResultData {
         this.result = result;
         this.message = message;
     }
+
 }

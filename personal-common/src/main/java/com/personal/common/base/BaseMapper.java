@@ -13,13 +13,13 @@ public interface BaseMapper<T,PK extends Serializable> {
 
     int save(T t);
 
-    int save(Map<String, Object> map);
+    int saveByMap(Map<String, Object> map);
 
     int update(T t);
 
-    int update(Map<String, Object> map);
+    int updateByMap(Map<String, Object> map);
 
-    int delete(PK id);
+    int deleteById(PK id);
 
     int delete(Map<String, Object> map);
 
@@ -30,5 +30,7 @@ public interface BaseMapper<T,PK extends Serializable> {
     List<Map<String,Object>> queryListMap(Map<String, Object> map);
 
     int queryTotal(Map<String, Object> map);
+
+    T findByMap(Map<String, Object> map);
 
 }

@@ -8,39 +8,41 @@
 	
 	<!-- shiro 配置 -->
 	
-	<!-- 
+	<!--
 		一、Shiro框架总入口，过滤URL来匹配权限
 		1、securityManager 安全管理器。认证和授权、会话、缓存的管理。
 		2、loginUrl 登录页面
 		3、unauthorizedUrl 未授权页面
 		4、filterChainDefinitions 权限匹配链
+	-->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/admin/login.html" />
+		<property name="loginUrl" value="/pages/login.html" />
 		<property name="filterChainDefinitions">
 			<value>
-				/admin/login.html = anon
-				/admin/commom/** = anon
-				/admin/index.html = authc
-				/admin/pages/** = authc
+				/pages/login.html = anon
+				/statics/** = anon
+				/main.html = authc
+				/views/** = authc
 				/** = anon
 			</value>
 		</property>
 	</bean>
-	-->
-	
+
+
 	
 	<!-- 
 		二、安全管理器 
 		1、realm 数据源，单个
 		2、cacheManager 缓存管理，对认证和授权数据进行管理
 		3、sessionManager 会话管理：管理session和cookie
+	-->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realms" ref="userRealm" />
 		<property name="cacheManager" ref="cacheManager" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
-	-->
+
 	<!-- 
 		三、缓存管理
 		1、加载beanId=redisManager的缓存实现
@@ -52,7 +54,8 @@
 		四、Realm实现，实现用户认证和授权。按项目需求来手动编写
 		1、credentialsMatcher 凭证匹配，密码匹配器
 		2、cachingEnabled 开启缓存，保存认证信息和授权信息。
-	<bean id="userRealm" class="com.wiseyq.webapp.system.shiro.realm.UserRealm">
+	-->
+	<bean id="userRealm" class="com.personal.system.shiro.realm.UserRealm">
 	
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		
@@ -62,19 +65,19 @@
 		<property name="authorizationCachingEnabled" value="true" />
 		<property name="authorizationCacheName" value="authorizationCache" />
 	</bean>
-	-->
+
 	<!-- 
 		凭证匹配器，用户效验密码及控制效验次数
 		1、hashAlgorithmName 加密算法。与系统使用的密码加密方法一致 
-		2、hashIterations 加密次数。与系统使用的密码加密方法一致 
-	<bean id="credentialsMatcher" class="com.wiseyq.core.security.shiro.credentials.RetryLimitHashedCredentialsMatcher">
-	
+		2、hashIterations 加密次数。与系统使用的密码加密方法一致
+	-->
+	<bean id="credentialsMatcher" class="com.personal.common.shiro.credentials.RetryLimitHashedCredentialsMatcher">
+
 		<constructor-arg ref="cacheManager" />
 		
 		<property name="hashAlgorithmName" value="md5" />
 		<property name="hashIterations" value="1" />
 	</bean>
-	-->
 
 	
 	<!-- 
@@ -83,14 +86,15 @@
 		2、sessionDAO session管理
 		3、globalSessionTimeout 会话失效时间(毫秒)
 		4、sessionValidationScheduler 会话验证调度器
+	-->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 
 		<property name="sessionIdCookie" ref="sessionIdCookie" />
 		<property name="sessionDAO" ref="sessionDAO" />
-		<property name="globalSessionTimeout" value="3600000" />
+		<property name="globalSessionTimeout" value="60000" />
 		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
 	</bean>
-	-->
+
 	<!-- 
 		会话Cookie设置
 		1、name 设置Cookie中保存session的名称，必须设置
@@ -98,38 +102,40 @@
 	-->
 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<property name="name" value="sid" />
-		<property name="maxAge" value="3600000" />
+		<property name="maxAge" value="60000" />
 	</bean>
 	
 	
 	<!-- 
 		自定义session管理器。
 		不依赖Shiro缓存来实现session的管理，依赖beanId = redisManager 来使用缓存
-	<bean id="sessionDAO" class="com.wiseyq.core.security.shiro.session.ShiroSessionDAO"></bean>
 	-->
+	<bean id="sessionDAO" class="com.personal.common.shiro.session.ShiroSession" />
+
 	
 	<!-- 
 		会话验证调度器,定期的检测会话（Session）是否过期，主要检查用户非正常退出的会话是否过期。
 		无需导入shiro-quartz包，该报与其他版本的quartz2.0+版本冲突，因此重新实现了该类
-		1、sessionValidationInterval 调度时间间隔(毫秒) 
-	<bean id="sessionValidationScheduler" class="com.wiseyq.core.security.shiro.scheduler.QuartzSessionValidationScheduler">
-		<property name="sessionValidationInterval" value="3600000" />
+		1、sessionValidationInterval 调度时间间隔(毫秒)
+	-->
+	<bean id="sessionValidationScheduler" class="com.personal.common.shiro.scheduler.QuartzSessionValidationScheduler">
+		<property name="sessionValidationInterval" value="60000" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
-	-->
+
 	
 	<!-- 
 		缓存实现类，多处使用beanId = redisManager的实现类，请不要修改名称
-
-	<bean id="redisManager" class="com.wiseyq.core.security.shiro.cache.ShiroRedisManager">
+	-->
+	<bean id="redisManager" class="com.personal.common.shiro.ShiroRedisManager">
 	    <property name="host" value="${redis.host}"/>
 	    <property name="port" value="${redis.port}"/>
 	    <property name="password" value="${redis.password}"/>
 	    <property name="expire" value="${redis.expire}"/>
-	    <property name="keyPrefix" value="shiro-"></property>
+	    <property name="keyPrefix" value="shiro-" />
 	    <property name="database" value="1"/>
 	</bean>
-	-->
+
 	
 	<!-- 
 		五、Shiro生命周期处理器

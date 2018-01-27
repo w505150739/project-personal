@@ -73,7 +73,7 @@
 
     <!-- 需配置 mabatis 加载xml文件的包路径 -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.personal.*.dao" />
+        <property name="basePackage" value="com.personal.**.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 

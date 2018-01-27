@@ -57,15 +57,32 @@
     <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 
-    <!-- 文件上传 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
+    <!-- RESTful风格url,设置静态页面的映射地址 -->
+    <!--<mvc:resources mapping="/statics/**" location="/statics/"/>-->
+    <!--<mvc:resources mapping="/pages/**" location="/pages/"/>-->
+    <!--
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/views/" />
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
 
-    <!-- RESTful风格url,设置静态页面的映射地址
-    <mvc:resources mapping="/admin/**" location="/admin/"/>
-    <mvc:resources mapping="/common/**" location="/common/"/>
-    <mvc:resources mapping="/login/**" location="/login/"/>
-    <mvc:resources mapping="/front/**" location="/front/"/>
-    <mvc:resources mapping="/font/**" location="/font/"/>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="true" />
+        <property name="dateToolAttribute" value="date" />
+        <property name="numberToolAttribute" value="number" />
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="toolboxConfigLocation" value="/WEB-INF/velocity-toolbox.xml" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".html" />
+        <property name="contentType" value="text/html;charset=UTF-8" />
+    </bean>
     -->
     <!-- 	<mvc:interceptors> -->
     <!--         <mvc:interceptor> -->
@@ -94,4 +111,10 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
     -->
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1000000000" />
+    </bean>
+
 </beans>

@@ -22,8 +22,8 @@ public abstract class BaseServiceImpl<T,PK extends Serializable> implements Base
     }
 
     @Override
-    public int save(Map<String, Object> map) {
-        return this.getMapper().save(map);
+    public int saveByMap(Map<String, Object> map) {
+        return this.getMapper().saveByMap(map);
     }
 
     @Override
@@ -32,13 +32,13 @@ public abstract class BaseServiceImpl<T,PK extends Serializable> implements Base
     }
 
     @Override
-    public int update(Map<String, Object> map) {
-        return this.getMapper().update(map);
+    public int updateByMap(Map<String, Object> map) {
+        return this.getMapper().updateByMap(map);
     }
 
     @Override
-    public int delete(PK id) {
-        return this.getMapper().delete(id);
+    public int deleteById(PK id) {
+        return this.getMapper().deleteById(id);
     }
 
     @Override
@@ -64,5 +64,10 @@ public abstract class BaseServiceImpl<T,PK extends Serializable> implements Base
     @Override
     public int queryTotal(Map<String, Object> map) {
         return this.getMapper().queryTotal(map);
+    }
+
+    @Override
+    public T findByMap(Map<String, Object> map) {
+        return this.getMapper().findByMap(map);
     }
 }
