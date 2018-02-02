@@ -49,7 +49,7 @@
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
         <!-- 配置监控统计拦截的filters -->
-        <!--<property name="filters" value="wall,stat" />-->
+        <property name="filters" value="wall,stat" />
 
         <property name="proxyFilters">
             <list>
@@ -94,5 +94,19 @@
     <bean id="quartzLockManage" class="com.personal.common.lock.JdbcQuartzLockManage" />
     <!-- 全局锁切面 -->
     <!-- <bean id="quartzLockAspect" class="com.wiseyq.core.aspect.lock.QuartzLockAspect" /> -->
+
+    <!-- druid spring monitor setting -->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.personal.*.service.*</value>
+                <value>com.personal.*.dao.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+    </aop:config>
 
 </beans>

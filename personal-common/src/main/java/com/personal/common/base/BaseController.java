@@ -1,5 +1,10 @@
 package com.personal.common.base;
 
+import com.personal.common.jwt.JWTHelper;
+import com.personal.common.util.DeployInfoUtil;
+import com.personal.common.util.crypt.CryptTool;
+import com.personal.common.util.crypt.CryptUtil;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
@@ -46,5 +51,22 @@ public class BaseController {
             }
         }
         return map;
+    }
+
+    /**
+     * 生产token
+     * @param userId 用户id
+     * @param roleId 角色id
+     * @param salt 用户盐值
+     * @return token
+     */
+    public String getTokenByUser(String userId,String roleId,String salt){
+        Map<String,Object> tokenMap = new HashMap<String,Object>();
+        tokenMap.put("userId",userId);
+        tokenMap.put("roles",roleId);
+        //过期时间
+        Long expire = System.currentTimeMillis() + 1000*60*Integer.parseInt(DeployInfoUtil.getTokenExpire());
+        /** 生成token **/
+        return JWTHelper.createJwt(tokenMap,salt,expire);
     }
 }

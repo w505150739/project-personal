@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.personal.system.login.dao.UserMapper">
-    <resultMap id="BaseResultMap" type="com.personal.system.login.entity.UserEntity">
+<mapper namespace="com.personal.system.user.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.personal.system.user.entity.UserEntity">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="nickname" jdbcType="VARCHAR" property="nickName" />
         <result column="realname" jdbcType="VARCHAR" property="realName" />
@@ -28,6 +28,7 @@
         password,
         user_name,
         status,
+        salt,
         create_time,
         update_time,
         create_user,
@@ -47,7 +48,7 @@
     </delete>
 
     <!-- 根据实体增加 -->
-    <insert id="save" parameterType="com.personal.system.login.entity.UserEntity">
+    <insert id="save" parameterType="com.personal.system.user.entity.UserEntity">
         insert into t_p_user (
             id,
             nickname,
@@ -69,7 +70,7 @@
         )
     </insert>
     <!-- 根据map增加  -->
-    <update id="update" parameterType="com.personal.system.login.entity.UserEntity">
+    <update id="update" parameterType="com.personal.system.user.entity.UserEntity">
         update t_p_user
         set username = #{userName},
         password = #{password},

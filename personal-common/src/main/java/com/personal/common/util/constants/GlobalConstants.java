@@ -28,6 +28,13 @@ public class GlobalConstants {
     public static final String CODE_CACHE="codeCache";
 
     /**
+     * 密码md5 加密盐值
+     */
+    public static final String PASSWORD_KEY = "personal";
+
+    public static final String PREFIX = "api/";
+
+    /**
      * 代码生成方式
      */
     public enum genType {

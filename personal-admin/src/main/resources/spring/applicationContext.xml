@@ -33,7 +33,7 @@
 
     <import resource="classpath:spring/application-dao.xml"/>
 
-    <import resource="classpath:spring/spring-shiro.xml" />
+    <!--<import resource="classpath:spring/spring-shiro.xml" />-->
 
 
     <!-- cas配置

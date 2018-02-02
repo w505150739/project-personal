@@ -14,7 +14,7 @@ public class ResultData {
     /**
      * 标识，成功：true，失败：false
      */
-    private boolean result = true;
+    private Integer result = 0;
 
     /**
      * 消息提示
@@ -33,9 +33,25 @@ public class ResultData {
         this.data = data;
     }
 
-    public ResultData(boolean result,String message){
+    public ResultData(Integer result,String message){
         this.result = result;
         this.message = message;
+    }
+
+    public ResultData successResult(String message,Object data){
+        ResultData result = new ResultData();
+        result.setResult(0);
+        result.setMessage(message);
+        result.setData(data);
+        return result;
+    }
+
+    public ResultData errorResult(String message){
+        ResultData result = new ResultData();
+        result.setResult(-1);
+        result.setMessage(message);
+        result.setData(null);
+        return result;
     }
 
 }

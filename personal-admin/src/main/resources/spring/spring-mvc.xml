@@ -57,10 +57,10 @@
     <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 
-    <!-- RESTful风格url,设置静态页面的映射地址 -->
-    <!--<mvc:resources mapping="/statics/**" location="/statics/"/>-->
-    <!--<mvc:resources mapping="/pages/**" location="/pages/"/>-->
-    <!--
+    <!-- RESTful风格url,设置静态页面的映射地址
+    <mvc:resources mapping="**/statics/**" location="/views/statics/"/>
+    <mvc:resources mapping="**/pages/**" location="/views/pages/"/>
+
     <bean id="velocityConfig"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="/views/" />
@@ -83,35 +83,33 @@
         <property name="suffix" value=".html" />
         <property name="contentType" value="text/html;charset=UTF-8" />
     </bean>
-    -->
-    <!-- 	<mvc:interceptors> -->
-    <!--         <mvc:interceptor> -->
-    <!--             <mvc:mapping path="/**/*.do" /> -->
-    <!--             <bean class="com.wiseyq.webapp.config.interceptor.CommonInterceptor"> -->
-    <!--             <property name="excludeUrls"> -->
-    <!--                     <list> -->
-    <!--                         <value>/web/login.do</value> -->
-    <!--                         <value>/qrlogin/qrcode.do</value> -->
-    <!--                         <value>/qrlogin/login.do</value> -->
-    <!--                     </list> -->
-    <!--                 </property> -->
-    <!--             </bean> -->
-    <!--         </mvc:interceptor> -->
-    <!--         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" /> -->
-    <!--     </mvc:interceptors> -->
-
+-->
     <!-- Swgger配置， Enables swgger ui-->
-
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
-    <!--<bean name="/applicationSwaggerConfig" class="com.wiseyq.webapp.config.swagger.ApplicationSwaggerConfig"/>-->
-
     <!--
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
-    </bean>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**" />
+            <bean class="com.personal.common.interceptor.SystemInterceptor">
+                <property name="excludeUrls">
+                    <list>
+                        <value>/api/user/login.do</value>
+                        <value>/api/user/toLogin.do</value>
+                        <value>/api/guide/guide.do</value>
+                        <value>/api/user/resetPwdLogin.do</value>
+                        <value>/upload/fileUpload.do</value>
+                        <value>/upload/obtainOrderData.do</value>
+                        <value>/upload/obtainFileAddress.do</value>
+                        <value>/upload/updateOrderStatus.do</value>
+                        <value>/upload/getFileViewUrl.do</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+    </mvc:interceptors>
     -->
-
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="1000000000" />

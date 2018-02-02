@@ -75,6 +75,9 @@
     <velocity.version>1.7</velocity.version>
     <velocity.tools.version>2.0</velocity.tools.version>
 
+    <!-- token 验证 -->
+    <jwt.version>0.7.0</jwt.version>
+
   </properties>
 
   <dependencies>
@@ -516,6 +519,12 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <!-- token 验证工具 -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>${jwt.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -530,6 +539,18 @@
           <source>1.8</source>
           <target>1.8</target>
           <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <port>8080</port>
+          <path>/</path>
+          <uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+          <finalName>personal</finalName>
+          <server>tomcat8</server>
         </configuration>
       </plugin>
     </plugins>

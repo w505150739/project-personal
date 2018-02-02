@@ -17,11 +17,11 @@
 	-->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/pages/login.html" />
+		<property name="loginUrl" value="/api/user/toLogin.do" />
 		<property name="filterChainDefinitions">
 			<value>
-				/pages/login.html = anon
-				/statics/** = anon
+				/views/pages/login.html = anon
+				/views/statics/** = anon
 				/main.html = authc
 				/views/** = authc
 				/** = anon
@@ -47,7 +47,7 @@
 		三、缓存管理
 		1、加载beanId=redisManager的缓存实现
 	-->
-	<bean id="cacheManager" class="com.personal.common.shiro.cache.ShiroCacheManager" />
+	<bean id="cacheManager" class="com.personal.shiro.cache.ShiroCacheManager" />
 	
 	
 	<!-- 
@@ -71,7 +71,7 @@
 		1、hashAlgorithmName 加密算法。与系统使用的密码加密方法一致 
 		2、hashIterations 加密次数。与系统使用的密码加密方法一致
 	-->
-	<bean id="credentialsMatcher" class="com.personal.common.shiro.credentials.RetryLimitHashedCredentialsMatcher">
+	<bean id="credentialsMatcher" class="com.personal.shiro.credentials.RetryLimitHashedCredentialsMatcher">
 
 		<constructor-arg ref="cacheManager" />
 		
@@ -110,7 +110,7 @@
 		自定义session管理器。
 		不依赖Shiro缓存来实现session的管理，依赖beanId = redisManager 来使用缓存
 	-->
-	<bean id="sessionDAO" class="com.personal.common.shiro.session.ShiroSession" />
+	<bean id="sessionDAO" class="com.personal.shiro.session.ShiroSession" />
 
 	
 	<!-- 
@@ -118,7 +118,7 @@
 		无需导入shiro-quartz包，该报与其他版本的quartz2.0+版本冲突，因此重新实现了该类
 		1、sessionValidationInterval 调度时间间隔(毫秒)
 	-->
-	<bean id="sessionValidationScheduler" class="com.personal.common.shiro.scheduler.QuartzSessionValidationScheduler">
+	<bean id="sessionValidationScheduler" class="com.personal.shiro.scheduler.QuartzSessionValidationScheduler">
 		<property name="sessionValidationInterval" value="60000" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
@@ -127,7 +127,7 @@
 	<!-- 
 		缓存实现类，多处使用beanId = redisManager的实现类，请不要修改名称
 	-->
-	<bean id="redisManager" class="com.personal.common.shiro.ShiroRedisManager">
+	<bean id="redisManager" class="com.personal.shiro.ShiroRedisManager">
 	    <property name="host" value="${redis.host}"/>
 	    <property name="port" value="${redis.port}"/>
 	    <property name="password" value="${redis.password}"/>

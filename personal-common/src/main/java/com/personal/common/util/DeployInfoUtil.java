@@ -109,4 +109,28 @@ public class DeployInfoUtil {
     public static Boolean getRedisTestOnBorrow() {
         return Boolean.parseBoolean(applicationPro.get("redis.testOnBorrow").toString());
     }
+
+    /**
+     * 获取token过期时间
+     * @return 过期时间
+     */
+    public static String getTokenExpire() {
+        return applicationPro.get("token.expire").toString();
+    }
+
+    /**
+     * 获取token加密方式
+     * @return 加密方式
+     */
+    public static String getTokenCrypt() {
+        return applicationPro.get("token.crypt").toString();
+    }
+
+    /**
+     * 获取登录地址
+     * @return 登录地址
+     */
+    public static String getLoginUrl() {
+        return applicationPro.get("login.url").toString();
+    }
 }

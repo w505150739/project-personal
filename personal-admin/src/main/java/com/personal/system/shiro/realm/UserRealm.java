@@ -2,15 +2,14 @@ package com.personal.system.shiro.realm;
 
 
 import com.personal.common.util.LogUtil;
-import com.personal.system.login.entity.UserEntity;
-import com.personal.system.login.service.UserService;
+import com.personal.system.user.entity.UserEntity;
+import com.personal.system.user.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
