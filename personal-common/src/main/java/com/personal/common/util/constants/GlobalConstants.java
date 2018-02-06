@@ -25,14 +25,14 @@ public class GlobalConstants {
     /**
      * 数据字典缓存
      */
-    public static final String CODE_CACHE="codeCache";
+    public static final String CODE_CACHE="dictionaryCache";
 
     /**
-     * 密码md5 加密盐值
+     * 请求前缀
      */
-    public static final String PASSWORD_KEY = "personal";
-
     public static final String PREFIX = "api/";
+
+    public static final String TOKEN = "access_token";
 
     /**
      * 代码生成方式
@@ -65,23 +65,23 @@ public class GlobalConstants {
         /**
          * 根节点
          */
-        CATALOG("0"),
+        CATALOG(0),
         /**
          * 机构
          */
-        ORGAN("1"),
+        ORGAN(1),
         /**
          * 部门
          */
-        DEPART("2");
+        DEPART(2);
 
-        private String value;
+        private int value;
 
-        private OrganType(String value) {
+        private OrganType(int value) {
             this.value = value;
         }
 
-        public String getValue() {
+        public int getValue() {
             return value;
         }
     }
@@ -144,17 +144,17 @@ public class GlobalConstants {
         /**
          * 正常
          */
-        YES("0"),
+        YES(0),
         /**
          * 禁用
          */
-        NO("-1");
-        private String value;
+        NO(-1);
+        private int value;
 
-        ABLE_STATUS(String value){
+        ABLE_STATUS(int value){
             this.value=value;
         }
-        public String getValue(){
+        public int getValue(){
             return value;
         }
     }
@@ -165,21 +165,21 @@ public class GlobalConstants {
         /**
          * 菜单
          */
-        MENU("1"),
+        MENU(1),
         /**
          * 按钮
          */
-        BUTTON("2"),
+        BUTTON(2),
         /**
          * 目录
          */
-        CATALOG("0");
-        private String value;
+        CATALOG(0);
+        private int value;
 
-        private MenuType(String value){
+        private MenuType(int value){
             this.value=value;
         }
-        public String getValue(){
+        public int getValue(){
             return value;
         }
     }
@@ -191,17 +191,17 @@ public class GlobalConstants {
         /**
          * 是
          */
-        YES("0"),
+        YES(1),
         /**
          * 否
          */
-        NO("1");
-        private String value;
+        NO(0);
+        private int value;
 
-        private YESNO(String value){
+        private YESNO(int value){
             this.value=value;
         }
-        public String getValue(){
+        public int getValue(){
             return value;
         }
     }

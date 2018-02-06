@@ -42,11 +42,6 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/toLogin.do")
-    public String toLoginHtml(HttpServletRequest request){
-        return "pages/login";
-    }
-
     /**
      * 用户登录接口
      * @param request 入参
@@ -56,6 +51,7 @@ public class UserController extends BaseController{
     @RequestMapping(value = "/login.do",method = RequestMethod.POST)
     public ResultData login(HttpServletRequest request){
         Map<String,Object> params = this.getAllParams(request);
+        logger.info("Login params:" + params.toString());
         if(!params.containsKey("userName")){
             return  new ResultData().errorResult("请输入用户名");
         }
@@ -80,7 +76,9 @@ public class UserController extends BaseController{
         }
         String accessToken = this.getTokenByUser(user.getId()+"",user.getId()+"", CryptTool.CRYPT_KEY);
         logger.info("token===" + accessToken);
-        return new ResultData().successResult("登录成功",accessToken);
+        Map<String,Object> data = new HashMap<String,Object>();
+        data.put(GlobalConstants.TOKEN,accessToken);
+        return new ResultData().successResult("登录成功",data);
     }
 
     /**
@@ -88,6 +86,8 @@ public class UserController extends BaseController{
      * @param request 入参
      * @return result
      */
+    @ResponseBody
+    @RequestMapping(value = "/loginout.do",method = RequestMethod.POST)
     public ResultData loginOut(HttpServletRequest request){
         Map<String,Object> params = this.getAllParams(request);
         logger.info("logginOut params:" + params.toString());

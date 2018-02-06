@@ -13,6 +13,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,7 +29,7 @@ import java.util.Map;
  * @date 2018/1/26 14:58
  */
 @Controller
-@RequestMapping("api/generator")
+@RequestMapping(GlobalConstants.PREFIX + "generator")
 public class GeneratorController extends BaseController {
     @Autowired
     private SysGeneratorService sysGeneratorService;
@@ -37,8 +38,7 @@ public class GeneratorController extends BaseController {
      * 列表
      */
     @ResponseBody
-    @RequestMapping("/list")
-    @RequiresPermissions("sys:generator:list")
+    @RequestMapping(value = "/genlist.do",method = RequestMethod.POST)
     public PageUtil list(@RequestParam Map<String, Object> params){
         //查询列表数据
         Query query = new Query(params);

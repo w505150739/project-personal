@@ -123,7 +123,7 @@
         <filter-class>com.personal.common.filter.CorsFilter</filter-class>
         <init-param>
             <param-name>allowOrigin</param-name>
-            <param-value>http://localhost</param-value>
+            <param-value>*</param-value>
         </init-param>
         <init-param>
             <param-name>allowMethods</param-name>
