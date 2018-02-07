@@ -34,7 +34,7 @@ public class SystemInterceptor extends HandlerInterceptorAdapter {
         if(excludeUrls.indexOf(requestUri) != -1){
             return true;
         }
-        String headToken = request.getHeader("token");
+        String headToken = request.getHeader("access_token");
         logger.info("登录拦截器requestUri:" + requestUri);
         logger.info("登录拦截器ip地址:" + IPUtil.getRealIP(request));
         if(!StringUtils.isNotBlank(headToken)){
