@@ -35,9 +35,10 @@ public class SystemInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         String headToken = request.getHeader("access_token");
+        String requestToken = request.getParameter("access_token");
         logger.info("登录拦截器requestUri:" + requestUri);
         logger.info("登录拦截器ip地址:" + IPUtil.getRealIP(request));
-        if(!StringUtils.isNotBlank(headToken)){
+        if(!StringUtils.isNotBlank(headToken) && !StringUtils.isNotBlank(requestToken)){
             logger.info("Interceptor：token 为null 跳转到login页面！");
             response.sendRedirect(DeployInfoUtil.getLoginUrl());
             return false;
