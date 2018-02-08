@@ -53,22 +53,25 @@ public class GeneratorController extends BaseController {
     /**
      * 生成代码
      */
-    @RequestMapping("/code")
-    @RequiresPermissions("sys:generator:code")
+    @RequestMapping("/code.do")
     public void code(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String[] tableNames = new String[]{};
         //获取表名，不进行xss过滤
         HttpServletRequest orgRequest = XssHttpServletRequestWrapper.getOrgRequest(request);
         String tables = orgRequest.getParameter("tables");
-        tableNames = JSON.parseArray(tables).toArray(tableNames);
+        tableNames = tables.split(",");
 
-        byte[] data = sysGeneratorService.generatorCode(tableNames, GlobalConstants.genType.webDown.getValue());
+        try {
+            byte[] data = sysGeneratorService.generatorCode(tableNames, GlobalConstants.genType.webDown.getValue());
 
-        response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"hxyFrame.zip\"");
-        response.addHeader("Content-Length", "" + data.length);
-        response.setContentType("application/octet-stream; charset=UTF-8");
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=\"personal.zip\"");
+            response.addHeader("Content-Length", "" + data.length);
+            response.setContentType("application/octet-stream; charset=UTF-8");
 
-        IOUtils.write(data, response.getOutputStream());
+            IOUtils.write(data, response.getOutputStream());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

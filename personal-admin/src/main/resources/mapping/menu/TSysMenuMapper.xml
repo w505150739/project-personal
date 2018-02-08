@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.personal.menu.mapper.TSysMenuMapper">
+
+
+    <resultMap type="com.personal.menu.entity.TSysMenuEntity" id="tSysMenuMap">
+        <result property="id" column="id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="pMenuId" column="p_menu_id"/>
+        <result property="menuIcon" column="menu_icon"/>
+        <result property="menuLevel" column="menu_level"/>
+        <result property="menuSort" column="menu_sort"/>
+        <result property="menuUrl" column="menu_url"/>
+        <result property="menuDesc" column="menu_desc"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateUser" column="update_user"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+		id, 
+		menu_name, 
+		p_menu_id, 
+		menu_icon, 
+		menu_level, 
+		menu_sort, 
+		menu_url, 
+		menu_desc, 
+		status, 
+		create_time, 
+		update_time, 
+		create_user, 
+		update_user
+    </sql>
+
+	<select id="get" resultType="com.personal.menu.entity.TSysMenuEntity" resultMap="tSysMenuMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_menu t
+		where t.status = 1
+		and id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.personal.menu.entity.TSysMenuEntity" resultMap="tSysMenuMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_menut
+        where t.status = 1
+        order by t.create_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from t_sys_menu t where t.status = 1
+	</select>
+	 
+	<insert id="save" parameterType="com.personal.menu.entity.TSysMenuEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into t_sys_menu
+		(
+			`menu_name`, 
+			`p_menu_id`, 
+			`menu_icon`, 
+			`menu_level`, 
+			`menu_sort`, 
+			`menu_url`, 
+			`menu_desc`, 
+			`status`, 
+			`create_time`, 
+			`update_time`, 
+			`create_user`, 
+			`update_user`
+		)
+		values
+		(
+			#{menuName}, 
+			#{pMenuId}, 
+			#{menuIcon}, 
+			#{menuLevel}, 
+			#{menuSort}, 
+			#{menuUrl}, 
+			#{menuDesc}, 
+			#{status}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{createUser}, 
+			#{updateUser}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.personal.menu.entity.TSysMenuEntity">
+		update t_sys_menu 
+		<set>
+			<if test="menuName != null">`menu_name` = #{menuName}, </if>
+			<if test="pMenuId != null">`p_menu_id` = #{pMenuId}, </if>
+			<if test="menuIcon != null">`menu_icon` = #{menuIcon}, </if>
+			<if test="menuLevel != null">`menu_level` = #{menuLevel}, </if>
+			<if test="menuSort != null">`menu_sort` = #{menuSort}, </if>
+			<if test="menuUrl != null">`menu_url` = #{menuUrl}, </if>
+			<if test="menuDesc != null">`menu_desc` = #{menuDesc}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		update t_sys_menu set status = 0 where id = #{id}
+	</delete>
+
+</mapper>

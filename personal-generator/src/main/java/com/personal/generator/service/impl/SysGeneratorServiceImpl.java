@@ -1,6 +1,6 @@
 package com.personal.generator.service.impl;
 
-import com.personal.generator.dao.SysGeneratorDao;
+import com.personal.generator.mapper.SysGeneratorDao;
 import com.personal.generator.service.SysGeneratorService;
 import com.personal.generator.utils.GeneratorUtils;
 import org.apache.commons.io.IOUtils;

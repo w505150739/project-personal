@@ -1,4 +1,4 @@
-package com.personal.generator.dao;
+package com.personal.generator.mapper;
 
 import org.springframework.stereotype.Repository;
 

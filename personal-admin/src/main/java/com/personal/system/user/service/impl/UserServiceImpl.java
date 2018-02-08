@@ -2,7 +2,7 @@ package com.personal.system.user.service.impl;
 
 import com.personal.common.base.BaseMapper;
 import com.personal.common.service.impl.BaseServiceImpl;
-import com.personal.system.user.dao.UserMapper;
+import com.personal.system.user.mapper.UserMapper;
 import com.personal.system.user.entity.UserEntity;
 import com.personal.system.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

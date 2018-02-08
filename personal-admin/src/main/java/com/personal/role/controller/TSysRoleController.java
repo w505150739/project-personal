@@ -1,4 +1,4 @@
-package ${package}.controller;
+package com.personal.role.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -10,30 +10,30 @@ import org.springframework.web.bind.annotation.*;
 import com.personal.common.util.constants.GlobalConstants;
 
 import com.personal.common.base.BaseController;
-import ${package}.entity.${className}Entity;
-import ${package}.service.${className}Service;
-import ${utils}.PageUtil;
-import ${utils}.Query;
+import com.personal.role.entity.TSysRoleEntity;
+import com.personal.role.service.TSysRoleService;
+import com.personal.common.util.PageUtil;
+import com.personal.common.util.Query;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * ${comments}
+ * 系统角色表
  * 
- * @author ${author}
- * @email ${email}
- * @date ${datetime}
+ * @author liuyuzhu
+ * @email liuyuzhu.1314@gmail.com
+ * @date 2018-02-08 16:36:33
  */
 @RestController
-@RequestMapping(GlobalConstants.PREFIX + "${pathName}")
-public class ${className}Controller extends BaseController{
+@RequestMapping(GlobalConstants.PREFIX + "tsysrole")
+public class TSysRoleController extends BaseController{
 
-    private static LogUtil logger = LogUtil.getLogger(${className}Controller.class);
+    private static LogUtil logger = LogUtil.getLogger(TSysRoleController.class);
 
 	@Autowired
-	private ${className}Service ${classname}Service;
+	private TSysRoleService tSysRoleService;
 	
 	/**
 	 * 列表
@@ -45,10 +45,10 @@ public class ${className}Controller extends BaseController{
 		//查询列表数据
         Query query = new Query(params);
 
-		List<${className}Entity> ${classname}List = ${classname}Service.queryList(query);
-		int total = ${classname}Service.queryTotal(query);
+		List<TSysRoleEntity> tSysRoleList = tSysRoleService.queryList(query);
+		int total = tSysRoleService.queryTotal(query);
 
-        PageUtil pageUtil = new PageUtil(0, "查询成功", total, ${classname}List);
+        PageUtil pageUtil = new PageUtil(0, "查询成功", total, tSysRoleList);
 		return pageUtil;
 	}
 	
@@ -60,13 +60,13 @@ public class ${className}Controller extends BaseController{
 	@RequestMapping(value = "/info.do",method = RequestMethod.POST)
 	public ResultData info(HttpServletRequest request, HttpServletResponse response){
         Map<String,Object> params = this.getAllParams(request);
-        logger.info("  ${className}Controller info params:" + params.toString());
+        logger.info("  TSysRoleController info params:" + params.toString());
 
 	    ResultData result = new ResultData();
 
-		${className}Entity ${classname} = ${classname}Service.get(${pk.attrType}.valueOf(params.get("id").toString()));
+		TSysRoleEntity tSysRole = tSysRoleService.get(Long.valueOf(params.get("id").toString()));
 
-		result.setData(${classname});
+		result.setData(tSysRole);
 		return result;
 	}
 	
@@ -75,10 +75,10 @@ public class ${className}Controller extends BaseController{
 	 */
     @ResponseBody
 	@RequestMapping(value = "/save.do",method = RequestMethod.POST)
-	public ResultData save(${className}Entity ${classname}){
+	public ResultData save(TSysRoleEntity tSysRole){
         ResultData result = new ResultData();
 
-		${classname}Service.save(${classname});
+		tSysRoleService.save(tSysRole);
 
 		result.setMessage("保存成功！");
 
@@ -90,11 +90,11 @@ public class ${className}Controller extends BaseController{
 	 */
     @ResponseBody
 	@RequestMapping(value = "/update.do",method = RequestMethod.POST)
-	public ResultData update(${className}Entity ${classname}){
+	public ResultData update(TSysRoleEntity tSysRole){
 
 	    ResultData result = new ResultData();
 
-		${classname}Service.update(${classname});
+		tSysRoleService.update(tSysRole);
 
         result.setMessage("更新成功！");
 
@@ -109,11 +109,11 @@ public class ${className}Controller extends BaseController{
 	public ResultData delete(HttpServletRequest request){
 
         Map<String,Object> params = this.getAllParams(request);
-        logger.info("  ${className}Controller deleteById params:" + params.toString());
+        logger.info("  TSysRoleController deleteById params:" + params.toString());
 
         ResultData result = new ResultData();
-		${pk.attrType} id = ${pk.attrType}.valueOf(params.get("id").toString());
-		${classname}Service.deleteById(id);
+		Long id = Long.valueOf(params.get("id").toString());
+		tSysRoleService.deleteById(id);
 
         result.setMessage("删除成功！");
 		return result;

@@ -1,4 +1,4 @@
-package com.personal.system.user.dao;
+package com.personal.system.user.mapper;
 
 import com.personal.common.base.BaseMapper;
 import com.personal.system.user.entity.UserEntity;

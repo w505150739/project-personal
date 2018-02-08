@@ -41,8 +41,8 @@ public class GeneratorUtils {
         templates.add("template/Service.java.vm");
         templates.add("template/ServiceImpl.java.vm");
         templates.add("template/Controller.java.vm");
-        templates.add("template/list.html.vm");
-        templates.add("template/list.js.vm");
+        //templates.add("template/list.html.vm");
+        //templates.add("template/list.js.vm");
         //templates.add("template/menu.sql.vm");
         return templates;
     }
@@ -273,11 +273,11 @@ public class GeneratorUtils {
         }
 
         if(template.contains("Mapper.java.vm")){
-            return packagePath + "dao" + File.separator + className + "Dao.java";
+            return packagePath + "mapper" + File.separator + className + "Mapper.java";
         }
 
         if(template.contains("Mapper.xml.vm")){
-            return packagePath + "dao" + File.separator + className + "Dao.xml";
+            return packagePath + "mapper" + File.separator + className + "Mapper.xml";
         }
 
         if(template.contains("Service.java.vm")){

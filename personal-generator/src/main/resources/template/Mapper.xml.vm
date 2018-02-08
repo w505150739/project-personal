@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="${package}.dao.${className}Mapper">
+<mapper namespace="${package}.mapper.${className}Mapper">
 
 
     <resultMap type="${package}.entity.${className}Entity" id="${classname}Map">
@@ -17,39 +17,27 @@
 #end
     </sql>
 
-	<select id="queryObject" resultType="${package}.entity.${className}Entity" resultMap="${classname}Map">
+	<select id="get" resultType="${package}.entity.${className}Entity" resultMap="${classname}Map">
 		select
 		<include refid="Base_Column_List" />
-		from ${tableName}
-		where ${pk.columnName} = #{value}
+		from ${tableName} t
+		where t.status = 1
+		and ${pk.columnName} = #{value}
 	</select>
 
 	<select id="queryList" resultType="${package}.entity.${className}Entity" resultMap="${classname}Map">
 		select
 		<include refid="Base_Column_List" />
-		from ${tableName}
-        <choose>
-            <when test="sidx != null and sidx.trim() != ''">
-                order by ${sidx} ${order}
-            </when>
-			<otherwise>
-                order by ${pk.columnName} desc
-			</otherwise>
-        </choose>
+		from ${tableName}t
+        where t.status = 1
+        order by t.create_time desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
-
-    <select id="queryListByBean" resultType="${package}.entity.${className}Entity" resultMap="${classname}Map">
-        select
-        <include refid="Base_Column_List" />
-        from ${tableName}
-        WHERE 1=1
-    </select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from ${tableName}
+		select count(*) from ${tableName} t where t.status = 1
 	</select>
 	 
 	<insert id="save" parameterType="${package}.entity.${className}Entity"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
@@ -85,15 +73,8 @@
 		where ${pk.columnName} = #{${pk.attrname}}
 	</update>
 	
-	<delete id="delete">
-		delete from ${tableName} where ${pk.columnName} = #{value}
-	</delete>
-	
-	<delete id="deleteBatch">
-		delete from ${tableName} where ${pk.columnName} in 
-		<foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">
-			#{${pk.attrname}}
-		</foreach>
+	<delete id="deleteById">
+		update ${tableName} set status = 0 where ${pk.columnName} = #{id}
 	</delete>
 
 </mapper>
