@@ -43,10 +43,8 @@ public class TSysMenuController extends BaseController{
 	public PageUtil list(@RequestParam Map<String, Object> params){
         ResultData result=new ResultData();
 		//查询列表数据
-        Query query = new Query(params);
-
-		List<TSysMenuEntity> tSysMenuList = tSysMenuService.queryList(query);
-		int total = tSysMenuService.queryTotal(query);
+		List<TSysMenuEntity> tSysMenuList = tSysMenuService.queryList(params);
+		int total = tSysMenuService.queryTotal(params);
 
         PageUtil pageUtil = new PageUtil(0, "查询成功", total, tSysMenuList);
 		return pageUtil;
