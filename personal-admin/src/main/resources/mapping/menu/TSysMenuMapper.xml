@@ -6,6 +6,7 @@
 
     <resultMap type="com.personal.menu.entity.TSysMenuEntity" id="tSysMenuMap">
         <result property="id" column="id"/>
+        <result property="menuTitle" column="menu_title"/>
         <result property="menuName" column="menu_name"/>
         <result property="pMenuId" column="p_menu_id"/>
         <result property="menuIcon" column="menu_icon"/>
@@ -21,7 +22,8 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-		id, 
+		id,
+		menu_title,
 		menu_name, 
 		p_menu_id, 
 		menu_icon, 
@@ -62,8 +64,9 @@
 	<insert id="save" parameterType="com.personal.menu.entity.TSysMenuEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into t_sys_menu
 		(
-			`menu_name`, 
-			`p_menu_id`, 
+			`menu_title`,
+			`menu_name`,
+			`p_menu_id`,
 			`menu_icon`, 
 			`menu_level`, 
 			`menu_sort`, 
@@ -77,15 +80,16 @@
 		)
 		values
 		(
-			#{menuName}, 
-			#{pMenuId}, 
+			#{menuTitle},
+			#{menuName},
+			#{pMenuId},
 			#{menuIcon}, 
 			#{menuLevel}, 
 			#{menuSort}, 
 			#{menuUrl}, 
 			#{menuDesc}, 
-			#{status}, 
-			#{createTime}, 
+			1,
+			now(),
 			#{updateTime}, 
 			#{createUser}, 
 			#{updateUser}
@@ -95,6 +99,7 @@
 	<update id="update" parameterType="com.personal.menu.entity.TSysMenuEntity">
 		update t_sys_menu 
 		<set>
+			<if test="menuTitle != null">`menu_title` = #{menuTitle}, </if>
 			<if test="menuName != null">`menu_name` = #{menuName}, </if>
 			<if test="pMenuId != null">`p_menu_id` = #{pMenuId}, </if>
 			<if test="menuIcon != null">`menu_icon` = #{menuIcon}, </if>

@@ -26,6 +26,10 @@ public class TSysMenuEntity implements Serializable {
 	private Long id;
 	//菜单名称
 	private String menuName;
+
+	//菜单title
+	private String menuTitle;
+
 	//父级菜单id
 	private String pMenuId;
 	//菜单图标
