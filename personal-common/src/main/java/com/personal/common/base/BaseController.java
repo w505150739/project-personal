@@ -4,6 +4,10 @@ import com.personal.common.jwt.JWTHelper;
 import com.personal.common.util.DeployInfoUtil;
 import com.personal.common.util.crypt.CryptTool;
 import com.personal.common.util.crypt.CryptUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwsHeader;
+import io.jsonwebtoken.Jwts;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,5 +72,19 @@ public class BaseController {
         Long expire = System.currentTimeMillis() + 1000*60*Integer.parseInt(DeployInfoUtil.getTokenExpire());
         /** 生成token **/
         return JWTHelper.createJwt(tokenMap,salt,expire);
+    }
+
+    /**
+     * 解析token
+     * @param request token值
+     * @return
+     */
+    public Claims parseToken(HttpServletRequest request){
+        String token = request.getHeader("access_token");
+        if(StringUtils.isNotBlank(token)){
+            return Jwts.parser().setSigningKey(CryptTool.CRYPT_KEY).parseClaimsJws(token).getBody();
+        }else{
+            return null;
+        }
     }
 }

@@ -55,7 +55,7 @@ public class TSysMenuController extends BaseController{
 	 * 信息
 	 */
     @ResponseBody
-	@RequestMapping(value = "/info.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/info.do")
 	public ResultData info(HttpServletRequest request, HttpServletResponse response){
         Map<String,Object> params = this.getAllParams(request);
         logger.info("  TSysMenuController info params:" + params.toString());
@@ -73,9 +73,11 @@ public class TSysMenuController extends BaseController{
 	 */
     @ResponseBody
 	@RequestMapping(value = "/save.do",method = RequestMethod.POST)
-	public ResultData save(TSysMenuEntity tSysMenu){
+	public ResultData save(HttpServletRequest request,TSysMenuEntity tSysMenu){
         ResultData result = new ResultData();
 
+        String userId = this.parseToken(request).get("userId").toString();
+        tSysMenu.setCreateUser(Long.valueOf(userId));
 		tSysMenuService.save(tSysMenu);
 
 		result.setMessage("保存成功！");
@@ -88,10 +90,11 @@ public class TSysMenuController extends BaseController{
 	 */
     @ResponseBody
 	@RequestMapping(value = "/update.do",method = RequestMethod.POST)
-	public ResultData update(TSysMenuEntity tSysMenu){
+	public ResultData update(HttpServletRequest request,TSysMenuEntity tSysMenu){
 
 	    ResultData result = new ResultData();
-
+        String userId = this.parseToken(request).get("userId").toString();
+        tSysMenu.setUpdateUser(Long.valueOf(userId));
 		tSysMenuService.update(tSysMenu);
 
         result.setMessage("更新成功！");

@@ -57,7 +57,7 @@ public class ${className}Controller extends BaseController{
 	 * 信息
 	 */
     @ResponseBody
-	@RequestMapping(value = "/info.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/info.do")
 	public ResultData info(HttpServletRequest request, HttpServletResponse response){
         Map<String,Object> params = this.getAllParams(request);
         logger.info("  ${className}Controller info params:" + params.toString());
@@ -75,9 +75,10 @@ public class ${className}Controller extends BaseController{
 	 */
     @ResponseBody
 	@RequestMapping(value = "/save.do",method = RequestMethod.POST)
-	public ResultData save(${className}Entity ${classname}){
+	public ResultData save(HttpServletRequest request,${className}Entity ${classname}){
         ResultData result = new ResultData();
-
+        String userId = this.parseToken(request).get("userId").toString();
+        tSysMenu.setCreateUser(Long.valueOf(userId));
 		${classname}Service.save(${classname});
 
 		result.setMessage("保存成功！");
@@ -90,10 +91,11 @@ public class ${className}Controller extends BaseController{
 	 */
     @ResponseBody
 	@RequestMapping(value = "/update.do",method = RequestMethod.POST)
-	public ResultData update(${className}Entity ${classname}){
+	public ResultData update(HttpServletRequest request,${className}Entity ${classname}){
 
 	    ResultData result = new ResultData();
-
+        String userId = this.parseToken(request).get("userId").toString();
+        tSysMenu.setUpdateUser(Long.valueOf(userId));
 		${classname}Service.update(${classname});
 
         result.setMessage("更新成功！");
