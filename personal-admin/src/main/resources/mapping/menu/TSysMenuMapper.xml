@@ -51,6 +51,9 @@
 		<include refid="Base_Column_List" />
 		from t_sys_menu t
         where t.status = 1
+		<if test="pid != null and pid != null">
+			and t.p_menu_id = #{pid}
+		</if>
         order by t.create_time desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}

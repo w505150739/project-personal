@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.personal.common.util.LogUtil;
 import com.personal.common.util.result.ResultData;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.personal.common.util.constants.GlobalConstants;
@@ -78,6 +79,9 @@ public class TSysMenuController extends BaseController{
 
         String userId = this.parseToken(request).get("userId").toString();
         tSysMenu.setCreateUser(Long.valueOf(userId));
+        if(StringUtils.isBlank(tSysMenu.getPMenuId())){
+            tSysMenu.setPMenuId("0");
+        }
 		tSysMenuService.save(tSysMenu);
 
 		result.setMessage("保存成功！");

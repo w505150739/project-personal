@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+import java.util.List;
 
 
 /**
@@ -52,6 +52,5 @@ public class TSysMenuEntity implements Serializable {
 	private Long createUser;
 	//
 	private Long updateUser;
-
 
 }

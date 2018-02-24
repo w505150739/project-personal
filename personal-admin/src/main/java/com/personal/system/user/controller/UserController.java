@@ -78,6 +78,7 @@ public class UserController extends BaseController{
         logger.info("token===" + accessToken);
         Map<String,Object> data = new HashMap<String,Object>();
         data.put(GlobalConstants.TOKEN,accessToken);
+        data.put("user",user);
         return new ResultData().successResult("登录成功",data);
     }
 
