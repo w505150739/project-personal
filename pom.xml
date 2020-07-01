@@ -66,7 +66,7 @@
     <ezmorph>1.0.6</ezmorph>
     <poi.version>3.16</poi.version>
     <aspectj.version>1.8.10</aspectj.version>
-    <quartz.version>2.3.0</quartz.version>
+    <quartz.version>2.3.2</quartz.version>
 
     <lombok.version>1.16.18</lombok.version><!-- 注解工具类 -->
     <pagehelper.version>5.1.2</pagehelper.version> <!-- mybatis 分页插件 -->
