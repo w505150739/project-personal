@@ -35,7 +35,7 @@
     <fastjson.version>1.2.23</fastjson.version>
     <jackson.mapper.version>1.9.13</jackson.mapper.version>
     <mysql-connector.version>5.1.30</mysql-connector.version><!-- 数据库驱动 -->
-    <mybatis.version>3.2.7</mybatis.version><!-- Mybatis 框架 -->
+    <mybatis.version>3.5.6</mybatis.version><!-- Mybatis 框架 -->
     <mybatis-spring.version>1.2.2</mybatis-spring.version>
     <druid.version>1.1.0</druid.version> <!-- 数据库连接池 -->
     <mail.version>1.4.7</mail.version><!-- 邮件 -->
