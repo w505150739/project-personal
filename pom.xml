@@ -44,7 +44,7 @@
     <spring-data-redis.version>1.8.4.RELEASE</spring-data-redis.version> <!-- spring-redis -->
     <ehcache.version>2.10.4</ehcache.version><!-- ehcache 内存 -->
     <shiro.version>1.2.3</shiro.version> <!-- Shiro版本 -->
-    <httpclient.version>4.5.1</httpclient.version> <!-- HttpClient 组件 -->
+    <httpclient.version>4.5.13</httpclient.version> <!-- HttpClient 组件 -->
     <zxing.core.version>2.2</zxing.core.version><!-- 二维码 -->
     <websocketapi.version>1.0</websocketapi.version><!-- webSocket -->
     <oauth2.version>0.31</oauth2.version><!-- Oauth2 认证 -->
