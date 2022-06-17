@@ -32,7 +32,7 @@
     <spring.version>4.3.10.RELEASE</spring.version> <!-- spring 框架-->
     <spring.mobile>1.1.2.RELEASE</spring.mobile>
     <jackson.version>2.8.6</jackson.version> <!-- Jackson JSON转换 -->
-    <fastjson.version>1.2.23</fastjson.version>
+    <fastjson.version>1.2.83</fastjson.version>
     <jackson.mapper.version>1.9.13</jackson.mapper.version>
     <mysql-connector.version>5.1.30</mysql-connector.version><!-- 数据库驱动 -->
     <mybatis.version>3.2.7</mybatis.version><!-- Mybatis 框架 -->
