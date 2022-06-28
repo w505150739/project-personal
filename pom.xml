@@ -64,7 +64,7 @@
     <guava>18.0</guava>
     <json-lib>2.4</json-lib>
     <ezmorph>1.0.6</ezmorph>
-    <poi.version>3.16</poi.version>
+    <poi.version>4.1.1</poi.version>
     <aspectj.version>1.8.10</aspectj.version>
     <quartz.version>2.3.0</quartz.version>
 
